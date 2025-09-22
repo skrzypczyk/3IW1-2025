@@ -37,7 +37,7 @@ $i += 1;
 $i=0;
 echo $i;//0
 echo $i++;//0
-echo $i://1
+echo $i;//1
 echo ++$i;//2
 
 
