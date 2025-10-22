@@ -81,7 +81,6 @@ elseif($age < 18){
 }else{
     echo 'Majeur';
 }
-*/
 
 //Conditions : switch
 $role = "admin";
@@ -98,9 +97,222 @@ switch ($role){
 }
 
 
+$age = 18;
+
+if($age >= 18){
+    echo 'Majeur';
+}else{
+    echo 'Mineur';
+}
+
+//Condition ternaire :
+// instruction (condition)? vrai:faux;
+echo ($age >= 18)?"Majeur":"Mineur";
+
+
+// Null coalescent
+// Affiche firstname mais si firstname est null affiche yves
+echo $firstname??"Anonyme";
+//equivalent avec une ternaire :
+//echo (is_null($firstname))?"Yves":$firstname;
+
+
+//Les boucles
+//for : Nb de répétition (iteration) connu
+//while : Nb de répétition (iteration) inconnu
+//do while : au moins 1 iteration
+//foreach : Tableaux
+
+
+for( $cpt=0 ; $cpt<10 ; ++$cpt ){
+    echo $cpt;
+}
+
+$dice = rand(1, 6);
+$cpt = 1;
+while ($dice!= 6){
+    $dice = rand(1, 6);
+    $cpt++;
+}
+echo $cpt." tentatives";
+
+
+$cpt = 0;
+do{
+    $dice = rand(1, 6);
+    $cpt++;
+}while($dice!= 6);
+echo $cpt." tentatives";
 
 
 
+//$student = array();
+$student = ["LEDOUX","Johan",4];
+//$student = [0=>"LEDOUX",1=>"Johan",2=>4];
+//echo $student[1];
+$student[5]=20;
+$student[]=6;
+$student[3]="toto";
 
+//echo $student;
+echo "<pre>";
+print_r($student);
+
+$student = ["lastname"=>"Pierre", "firstname"=>"Martin", "average"=>18];
+//Afficher Prénom Nom a une moyenne de 18
+echo $student["firstname"]." ".$student["lastname"]." a une moyenne de ".$student["average"];
+
+
+
+//Dim : 3D
+
+$iw=[
+    "3A"=>[
+        "classe 1"=>[],
+        "classe 2"=>[
+            ["lastname"=>"Pierre", "firstname"=>"Martin", "average"=>18],
+        ],
+    ],
+    "4A"=>[],
+    "5A"=>[],
+];
+//Afficher Martin
+echo $iw["3A"]["classe 2"][0]["firstname"];
+
+//Dim :
+$array = [
+            [],
+            [
+                [
+                    [
+                        [
+                            ["teste"]
+                        ],
+                        [
+                            []
+                        ]
+                    ],
+                    []
+                ]
+            ]
+        ];
+
+
+echo "<pre>";
+print_r($array);
+
+
+$firstnames = ["Pierre", "Jean", "Louise","Océane"];
+?>
+
+<ul>
+    <?php
+        foreach ($firstnames as $key=>$firstname){
+            echo "<li>".$firstname." (".$key.")</li>";
+        }
+    ?>
+</ul>
+
+*/
+
+
+$students = [
+    [
+        "prenom" => "Alice",
+        "nom" => "Martin",
+        "email" => "alice.martin@example.com",
+        "note1" => 14,
+        "note2" => 16,
+        "age" => 17
+    ],
+    [
+        "prenom" => "Thomas",
+        "nom" => "Dupont",
+        "email" => "thomas.dupont@example.com",
+        "note1" => 12,
+        "note2" => 15,
+        "age" => 18
+    ],
+    [
+        "prenom" => "Sophie",
+        "nom" => "Durand",
+        "email" => "sophie.durand@example.com",
+        "note1" => 17,
+        "note2" => 13,
+        "age" => 17
+    ],
+    [
+        "prenom" => "Lucas",
+        "nom" => "Petit",
+        "email" => "lucas.petit@example.com",
+        "note1" => 11,
+        "note2" => 14,
+        "age" => 16
+    ],
+    [
+        "prenom" => "Emma",
+        "nom" => "Lemoine",
+        "email" => "emma.lemoine@example.com",
+        "note1" => 15,
+        "note2" => 18,
+        "age" => 17
+    ],
+    [
+        "prenom" => "Nathan",
+        "nom" => "Moreau",
+        "email" => "nathan.moreau@example.com",
+        "note1" => 13,
+        "note2" => 12,
+        "age" => 16
+    ],
+    [
+        "prenom" => "Camille",
+        "nom" => "Laurent",
+        "email" => "camille.laurent@example.com",
+        "note1" => 16,
+        "note2" => 14,
+        "age" => 18
+    ],
+    [
+        "prenom" => "Julien",
+        "nom" => "Garcia",
+        "email" => "julien.garcia@example.com",
+        "note1" => 10,
+        "note2" => 13,
+        "age" => 17
+    ],
+    [
+        "prenom" => "Chloé",
+        "nom" => "Roux",
+        "email" => "chloe.roux@example.com",
+        "note1" => 18,
+        "note2" => 17,
+        "age" => 16
+    ],
+    [
+        "prenom" => "Antoine",
+        "nom" => "Vincent",
+        "email" => "antoine.vincent@example.com",
+        "note1" => 9,
+        "note2" => 11,
+        "age" => 18
+    ],
+    [
+        "prenom" => "Léa",
+        "nom" => "Fournier",
+        "email" => "lea.fournier@example.com",
+        "note1" => 13,
+        "note2" => 15,
+        "age" => 17
+    ],
+    [
+        "prenom" => "Maxime",
+        "nom" => "Henry",
+        "email" => "maxime.henry@example.com",
+        "note1" => 12,
+        "note2" => 14,
+        "age" => 16
+    ],
+];
 
 
