@@ -315,4 +315,54 @@ $students = [
     ],
 ];
 
+$newStudents=[];
+
+foreach ($students as $student) {
+    $average = ($student["note1"]+$student["note2"])/2;
+    $average = round($average, 1)*10;
+    $newStudents[$average][] = $student;
+}
+
+krsort($newStudents);
+
+echo "<pre>";
+print_r($newStudents);
+
+?>
+
+<table>
+    <thead>
+    <tr>
+        <th>Rang</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Moyenne</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    $cpt=1;
+    foreach ($newStudents as $average=>$students){
+
+        foreach ($students as $student){
+
+            echo "<tr>";
+            echo "<td>".$cpt."</td>";
+            echo "<td>".$student["nom"]."</td>";
+            echo "<td>".$student["prenom"]."</td>";
+            echo "<td>".($average/10)."</td>";
+            echo "<tr>";
+
+        }
+        $cpt++;
+    }
+
+    ?>
+    </tbody>
+</table>
+
+
+
+
+
 
