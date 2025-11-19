@@ -1,5 +1,4 @@
 <?php
-
 /*
  *
  * TP : Routing
@@ -11,6 +10,8 @@
  * Exemple :
  * http://localhost:8080/contact
  * Doit créer une instance de Base et appeler la méthode (action) : contact
+ * $controller = new Base();
+ * $controller->contact();
  *
  * Pensez à effectuer tous les nettoyages et toutes les vérifications pour
  * afficher des erreurs (des simples die suffiront dans un premier temps)
