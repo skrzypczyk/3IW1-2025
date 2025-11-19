@@ -49,15 +49,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"
 
     $errors = [];
 
+    try{
+        $pdo = new PDO( 'pgsql:dbname=devdb;host=db' , 'devuser', 'devpass');
+    }catch(Exception $e){
+        die("Erreur SQL :".$e->getMessage());
+    }
+
     if(strlen($firstname)==1){
         $errors[]="Le prénom doit faire au moins 2 caractères";
     }
     if(strlen($lastname)==1){
         $errors[]="Le nom doit faire au moins 2 caractères";
     }
+
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         $errors[]="Le format de l'email est invalide";
+    }else{
+        $sql = 'SELECT id FROM public."user" WHERE email = :email';
+        $queryPrepared = $pdo->prepare($sql);
+        $queryPrepared->execute(["email"=>$email]);
+        $result = $queryPrepared->fetch();
+        if(!empty($result)){
+            $errors[]="L'email existe déjà";
+        }
     }
+
+
     if(strlen($_POST["pwd"])<8 ||
         !preg_match('#[A-Z]#', $_POST["pwd"]) ||
         !preg_match('#[a-z]#', $_POST["pwd"]) ||
@@ -70,20 +87,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"
         $errors[]="Le mot de passe de confirmation ne correspond pas";
     }
 
-
     if(empty($errors))
     {
 
-        try{
-            $pdo = new PDO( 'pgsql:dbname=devdb;host=db' , 'devuser', 'devpass');
-        }catch(Exception $e){
-            die("Erreur SQL :".$e->getMessage());
-        }
-
+        $pwdHashed = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
         $sql = 'INSERT INTO public."user"  (firstname, lastname, email, pwd, date_created)
-        VALUES (\''.$firstname.'\',\''.$lastname.'\',\''.$email.'\',\''.$_POST["pwd"].'\',\''.date('Ymd').'\')';
+        VALUES ( :firstname , :lastname , :email , :pwd , \''.date("Ymd").'\' )';
 
-        echo $sql;
+        $queryPrepared = $pdo->prepare($sql);
+        $queryPrepared->execute([
+            "firstname"=>$firstname,
+            "lastname"=>$lastname,
+            "email"=>$email,
+            "pwd"=>$pwdHashed
+        ]);
+
+
     }
 
 
