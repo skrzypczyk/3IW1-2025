@@ -15,5 +15,9 @@
  * Pensez à effectuer tous les nettoyages et toutes les vérifications pour
  * afficher des erreurs (des simples die suffiront dans un premier temps)
  *
+ * Rendu : Mail y.skrzypczyk@gmail.com
+ * Objet du mail : 3IW1 - TP routing - Nom Prénom
+ * Contenu du mail : fichier index.php et les autres fichiers créés s'il y en a
+ *
  * Bon courage
  */
