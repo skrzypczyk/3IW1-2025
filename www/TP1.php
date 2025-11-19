@@ -33,5 +33,91 @@ Si vous ne savez pas mettre votre code sur un repo envoyez moi une archive
 */
 
 
+//Est-ce que l'utilisateur a validé le form ?
+if($_SERVER["REQUEST_METHOD"] == "POST"
+    && count($_POST)==5
+    && isset($_POST["firstname"])
+    && isset($_POST["lastname"])
+    && !empty($_POST["email"])
+    && !empty($_POST["pwd"])
+    && !empty($_POST["pwdConfirm"])
+){
+
+    $firstname = ucwords(strtolower(trim($_POST["firstname"])));
+    $lastname = strtoupper(trim($_POST["lastname"]));
+    $email = strtolower(trim($_POST["email"]));
+
+    $errors = [];
+
+    if(strlen($firstname)==1){
+        $errors[]="Le prénom doit faire au moins 2 caractères";
+    }
+    if(strlen($lastname)==1){
+        $errors[]="Le nom doit faire au moins 2 caractères";
+    }
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        $errors[]="Le format de l'email est invalide";
+    }
+    if(strlen($_POST["pwd"])<8 ||
+        !preg_match('#[A-Z]#', $_POST["pwd"]) ||
+        !preg_match('#[a-z]#', $_POST["pwd"]) ||
+        !preg_match('#[0-9]#', $_POST["pwd"])
+    ){
+        $errors[]="Le mot de passe doit faire au moins 8 caractères avec une minuscule, une majuscule et un chiffres";
+    }
+
+    if($_POST["pwd"] != $_POST["pwdConfirm"]){
+        $errors[]="Le mot de passe de confirmation ne correspond pas";
+    }
+
+
+    if(empty($errors))
+    {
+
+        try{
+            $pdo = new PDO( 'pgsql:dbname=devdb;host=db' , 'devuser', 'devpass');
+        }catch(Exception $e){
+            die("Erreur SQL :".$e->getMessage());
+        }
+
+        $sql = 'INSERT INTO public."user"  (firstname, lastname, email, pwd, date_created)
+        VALUES (\''.$firstname.'\',\''.$lastname.'\',\''.$email.'\',\''.$_POST["pwd"].'\',\''.date('Ymd').'\')';
+
+        echo $sql;
+    }
+
+
+
+}
+
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TP1 PHP</title>
+    </head>
+    <body>
+
+    <?php
+        if(!empty($errors)){
+            echo "<pre>";
+            print_r($errors);
+            echo "</pre>";
+        }
+    ?>
+
+
+    <form method="POST" action="TP1.php">
+        <input type="text" value="<?= $_POST["firstname"]??"" ?>" name="firstname" placeholder="First Name"><br>
+        <input type="text" value="<?= $_POST["lastname"]??"" ?>"  name="lastname" placeholder="Last Name"><br>
+        <input type="email" value="<?= $_POST["email"]??"" ?>"  required name="email" placeholder="Email"><br>
+        <input type="password" required name="pwd" placeholder="Password"><br>
+        <input type="password" required name="pwdConfirm" placeholder="Confirm Password"><br>
+        <input type="submit" value="Register">
+    </form>
+
+    </body>
+</html>
 
 
