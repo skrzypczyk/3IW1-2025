@@ -6,6 +6,12 @@
   controller: Base
   action: contact
 
+
+/mon-super-portfolio:
+  controller: Base
+  action: portfolio
+
+
 /login:
   controller: Auth
   action: login

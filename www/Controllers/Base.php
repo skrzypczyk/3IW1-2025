@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class Base
 {
 
@@ -13,5 +15,10 @@ class Base
         echo "Base contact";
     }
 
+
+    public function portfolio(): void
+    {
+        echo "Base portfolio";
+    }
 
 }
