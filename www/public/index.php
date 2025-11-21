@@ -24,6 +24,16 @@ namespace App;
  *
  * Bon courage
  */
+
+
+spl_autoload_register(function ($class){
+    echo "tentative d'instance de ".$class;
+});
+
+
+
+
+
 $requestUri = strtok($_SERVER["REQUEST_URI"], "?");
 if(strlen($requestUri)>1)
     $requestUri = rtrim($requestUri, "/");
@@ -49,6 +59,7 @@ if(!file_exists("../Controllers/".$controller.".php")){
 
 include "../Controllers/".$controller.".php";
 
+$controller = "App\\Controllers\\".$controller;
 if(!class_exists($controller)){
     die("La classe du controller n'existe pas");
 }
