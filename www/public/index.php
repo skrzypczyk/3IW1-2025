@@ -25,13 +25,12 @@ namespace App;
  * Bon courage
  */
 
-
 spl_autoload_register(function ($class){
-    echo "tentative d'instance de ".$class;
+    $class = str_ireplace(["\\", "App"], ["/", ".."],$class);
+    if(file_exists($class.".php")){
+        include $class.".php";
+    }
 });
-
-
-
 
 
 $requestUri = strtok($_SERVER["REQUEST_URI"], "?");

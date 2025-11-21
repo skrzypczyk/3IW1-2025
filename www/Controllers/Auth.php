@@ -1,17 +1,15 @@
 <?php
 namespace App\Controllers;
 
-use App\Helpers\Clean;
+use App\Core\Render;
 
 class Auth
 {
     public function login(): void
     {
-        $lastname = "SKrzypCZYk   ";
-        $clean = new Clean();
-        $lastname = $clean->lastname($lastname);
 
-        echo "Auth login";
+        $render = new Render("login", "backoffice");
+        $render->render();
     }
 
     public function register(): void
